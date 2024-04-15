@@ -7,11 +7,65 @@ import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import EmptyCart from "../img/emptyCart.svg";
 import CartItem from "./CartItem";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+} from "@mui/material";
+import { useTheme } from "@emotion/react";
+import { addDoc, collection, onSnapshot, query } from "firebase/firestore";
+import { db } from "../firebase.config";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 const CartContainer = () => {
+  let finalOrders = [];
+  const names = [];
+  let orderlist = {};
+  const theme = useTheme();
+  const [personName, setPersonName] = useState("");
+  const [Guests, setGuests] = useState([]);
+  const [whatsappMessage, setWhatsappMessage] = useState("");
+
   const [{ cartShow, cartItems, user }, dispatch] = useStateValue();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
+
+  // this is person selections
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
+
+  function getStyles(name, personName, theme) {
+    // return {
+    //   fontWeight:
+    //     personName.indexOf(name) === -1
+    //       ? theme.typography.fontWeightRegular
+    //       : theme.typography.fontWeightMedium,
+    // };
+  }
+
+  Guests.forEach((doc) => {
+    names.push(doc);
+  });
+  //
 
   const showCart = () => {
     dispatch({
@@ -20,7 +74,25 @@ const CartContainer = () => {
     });
   };
 
-  useEffect(() => {
+  useEffect(async () => {
+    // backend to select names
+    const dummyData = [];
+    await onSnapshot(
+      query(collection(db, "Guests")),
+      (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          dummyData.push({ id: doc.id, ...doc.data() });
+          console.log(dummyData, "guestssnap");
+        });
+        console.log(dummyData, "final");
+        setGuests(dummyData);
+      },
+      (error) => {
+        console.error("Error fetching podcasts:", error);
+      }
+    );
+
+    // calculating total price
     let totalPrice = cartItems.reduce(function (accumulator, item) {
       return accumulator + item.qty * item.price;
     }, 0);
@@ -35,6 +107,39 @@ const CartContainer = () => {
     });
 
     localStorage.setItem("cartItems", JSON.stringify([]));
+  };
+
+  //submit
+  const handleSubmit = async () => {
+    if (personName) {
+      if (cartItems.length > 0) {
+        console.log(cartItems, "befre sending");
+        cartItems.forEach((item) =>
+          finalOrders.push({
+            name: item.title,
+            price: item.price,
+            quantity: item.qty,
+          })
+        );
+
+        orderlist = {
+          date: new Date(),
+          orderFor: personName,
+          order: finalOrders,
+        };
+        console.log("sending data", finalOrders);
+        await addDoc(collection(db, "Orders"), orderlist);
+        let orderlistings = JSON.stringify(finalOrders);
+        setWhatsappMessage({
+          Name: personName,
+          order: orderlistings,
+        });
+      }
+      console.log(orderlist, "orderlist");
+      console.log("order placed");
+    } else {
+      alert("please select guest");
+    }
   };
 
   return (
@@ -81,11 +186,29 @@ const CartContainer = () => {
           <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-400 text-lg">Sub Total</p>
-              <p className="text-gray-400 text-lg">$ {tot}</p>
+              <p className="text-gray-400 text-lg">₹ {tot}</p>
             </div>
             <div className="w-full flex items-center justify-between">
-              <p className="text-gray-400 text-lg">Delivery</p>
-              <p className="text-gray-400 text-lg">$ 2.5</p>
+              {/* <p className="text-gray-400 text-lg">Delivery</p>
+              <p className="text-gray-400 text-lg">$ 2.5</p> */}
+
+              <select
+                className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2"
+                value={personName}
+                onChange={handleChange}
+                placeholder="Please select the guest name"
+                style={
+                  ({ width: "200px" },
+                  { alignContent: "center" },
+                  { color: "white" })
+                }
+              >
+                {names.map((item) => (
+                  <option key={item.id} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="w-full border-b border-gray-600 my-2"></div>
@@ -93,7 +216,7 @@ const CartContainer = () => {
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-200 text-xl font-semibold">Total</p>
               <p className="text-gray-200 text-xl font-semibold">
-                ${tot + 2.5}
+                ₹{tot + 2.5}
               </p>
             </div>
 
@@ -101,7 +224,8 @@ const CartContainer = () => {
               <motion.button
                 whileTap={{ scale: 0.8 }}
                 type="button"
-                className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
+                onClick={handleSubmit}
+                className="w-full p-2 rounded-full bg-gradient-to-tr bg-gradient-to-r from-cyan-500 to-blue-500 text-gray-50 text-lg my-2 hover:shadow-lg"
               >
                 Check Out
               </motion.button>
