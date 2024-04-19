@@ -18,6 +18,26 @@ body {
   overflow-x: hidden;
 }
 
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+th {
+  text-align: left;
+  padding: 10px;
+}
+tr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+table {
+  border-spacing: 0 15px;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
