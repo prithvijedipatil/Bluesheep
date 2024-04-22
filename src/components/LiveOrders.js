@@ -82,6 +82,7 @@ function LiveOrders() {
         let ref = doc(db, "LiveOrders", id.toString());
         await deleteDoc(ref);
         alert("Added to Bill");
+        window.location.reload();
       }
     }
   };
