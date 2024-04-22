@@ -147,7 +147,7 @@ const CartContainer = () => {
       console.log(orderlist, "orderlist");
       console.log("order placed");
       setWhatsappMessage({
-        order: "New Order",
+        order: "New Orderr",
       });
 
       // alert("Order Successfully placed");
