@@ -5,6 +5,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useNavigate } from "react-router-dom";
 import {
   Firestore,
   collection,
@@ -24,6 +25,7 @@ const RemoveGuest = () => {
   const [selectedGuest, setSelectedGuest] = useState([]);
   let guestID = [];
   const [refresh, setRefresh] = useState(false);
+  const navigate = useNavigate();
 
   window.onload = (event) => {
     onSnapshot(
@@ -105,7 +107,8 @@ const RemoveGuest = () => {
 
     alert(`${guestID[0].name} removed`);
     setRefresh(!refresh);
-    window.location.reload();
+    // window.location.reload();
+    navigate("/");
   };
 
   return (

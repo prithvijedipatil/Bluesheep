@@ -14,6 +14,7 @@ import { db, firestore } from "../firebase.config";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import "../index.css";
+import { useNavigate } from "react-router-dom";
 
 const BillDetails = () => {
   const [billDetails, setBillDetails] = useState([]);
@@ -25,6 +26,7 @@ const BillDetails = () => {
   const [{ billItems }, dispatch] = useStateValue();
   const [showTable, setShowTable] = useState(false);
   const [total, setTotal] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const {
@@ -66,7 +68,11 @@ const BillDetails = () => {
     if (personName) {
       console.log("selected guest console", personName);
       onSnapshot(
-        query(collection(db, "Orders"), where("orderFor", "==", personName)),
+        query(
+          collection(db, "Orders"),
+          orderBy("date", "asc"),
+          where("orderFor", "==", personName)
+        ),
         (querySnapshot) => {
           const OrdersData = [];
           querySnapshot.forEach((doc) => {

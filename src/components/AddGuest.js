@@ -5,10 +5,13 @@ import { Button, ButtonGroup, TextField } from "@mui/material";
 import { storage, auth } from "../firebase.config";
 import { addDoc, collection } from "firebase/firestore";
 
+import { useNavigate } from "react-router-dom";
+
 const AddGuest = () => {
   const [guestName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const sendDataName = {
@@ -16,7 +19,8 @@ const AddGuest = () => {
     };
     await addDoc(collection(db, "Guests"), sendDataName);
     alert(`Successfully added ${guestName}`);
-    window.location.reload();
+    // window.location.reload();
+    navigate("/");
   };
   return (
     <>

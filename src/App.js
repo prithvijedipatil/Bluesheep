@@ -8,6 +8,7 @@ import { actionType } from "./context/reducer";
 import BillDetails from "./components/BillDetails";
 import AddGuest from "./components/AddGuest";
 import RemoveGuest from "./components/RemoveGuest";
+import LiveOrders from "./components/LiveOrders";
 
 const App = () => {
   const [{ foodItems }, dispatch] = useStateValue();
@@ -37,6 +38,7 @@ const App = () => {
             <Route path="/bill" element={<BillDetails />} />
             <Route path="/checkin" element={<AddGuest />} />
             <Route path="/checkout" element={<RemoveGuest />} />
+            <Route path="/liveorders" element={<LiveOrders />} />
           </Routes>
         </main>
       </div>

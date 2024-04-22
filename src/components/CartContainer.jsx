@@ -17,6 +17,7 @@ import {
 import { useTheme } from "@emotion/react";
 import { addDoc, collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase.config";
+import { useNavigate } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -30,6 +31,7 @@ const MenuProps = {
 };
 
 const CartContainer = () => {
+  const navigate = useNavigate();
   let finalOrders = [];
   const names = [];
   let orderlist = {};
@@ -123,12 +125,14 @@ const CartContainer = () => {
         );
 
         orderlist = {
-          date: new Date(),
+          date: Math.floor(Date.now() / 1000),
           orderFor: personName,
           order: finalOrders,
         };
         console.log("sending data", finalOrders);
-        await addDoc(collection(db, "Orders"), orderlist);
+        console.log("orderlist", orderlist);
+
+        await addDoc(collection(db, "LiveOrders"), orderlist);
         let orderlistings = JSON.stringify(finalOrders);
         setWhatsappMessage({
           Name: personName,
@@ -137,6 +141,12 @@ const CartContainer = () => {
       }
       console.log(orderlist, "orderlist");
       console.log("order placed");
+      alert("Order Successfully placed");
+      dispatch({
+        type: actionType.SET_CART_SHOW,
+        cartShow: !cartShow,
+      });
+      clearCart();
     } else {
       alert("please select guest");
     }

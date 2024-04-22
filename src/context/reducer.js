@@ -4,6 +4,7 @@ export const actionType = {
   SET_CART_SHOW: "SET_CART_SHOW",
   SET_CARTITEMS: "SET_CARTITEMS",
   SET_BILLITEMS: "SET_BILLITEMS",
+  SET_DYNAMICORDERS: "SET_DYNAMICORDERS",
 };
 
 const reducer = (state, action) => {
@@ -37,6 +38,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         billItems: action.billItems,
+      };
+    case actionType.SET_DYNAMICORDERS:
+      return {
+        ...state,
+        dynamicOrders: action.dynamicOrders,
       };
 
     default:
