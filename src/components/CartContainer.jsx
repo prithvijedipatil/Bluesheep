@@ -256,7 +256,7 @@ const CartContainer = () => {
                     marginLeft: "10%",
                     marginRight: "auto",
                   }}
-                  number="9902225769"
+                  number="+919902225769"
                   onClick={handleSubmit}
                   message={JSON.stringify(whatsappMessage)}
                 >

@@ -153,7 +153,7 @@ function LiveOrders() {
                               marginLeft: "10%",
                               marginRight: "auto",
                             }}
-                            number="9902225769"
+                            number="+919902225769"
                             message={"Order Served"}
                           >
                             Served
