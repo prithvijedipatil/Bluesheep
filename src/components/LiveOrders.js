@@ -19,7 +19,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { motion } from "framer-motion";
-import addNotification from "react-push-notification";
+
 import ReactWhatsapp from "react-whatsapp";
 
 const bull = (
@@ -84,13 +84,7 @@ function LiveOrders() {
         let ref = doc(db, "LiveOrders", id.toString());
         await deleteDoc(ref);
         alert("Added to Bill");
-        addNotification({
-          title: "Yayy!! Order Served",
-          subtitle: `${servedOrder[0].orderFor[0]}`,
-          message: `Order has been served for ${servedOrder[0].orderFor[0]}`,
-          theme: "darkblue",
-          native: true,
-        });
+
         servedOrder.length = 0;
         window.location.reload();
       }

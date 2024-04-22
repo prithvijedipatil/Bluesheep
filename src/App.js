@@ -9,7 +9,6 @@ import BillDetails from "./components/BillDetails";
 import AddGuest from "./components/AddGuest";
 import RemoveGuest from "./components/RemoveGuest";
 import LiveOrders from "./components/LiveOrders";
-import { Notifications } from "react-push-notification";
 
 const App = () => {
   const [{ foodItems }, dispatch] = useStateValue();
@@ -31,7 +30,6 @@ const App = () => {
     <AnimatePresence exitBeforeEnter>
       <div className="w-screen h-auto flex flex-col bg-primary">
         <Header />
-        <Notifications />
 
         <main className="mt-14 md:mt-20 px-4 md:px-16 py-4 w-full">
           <Routes>

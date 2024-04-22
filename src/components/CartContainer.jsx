@@ -7,7 +7,7 @@ import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import EmptyCart from "../img/emptyCart.svg";
 import CartItem from "./CartItem";
-import addNotification from "react-push-notification";
+
 import {
   FormControl,
   InputLabel,
@@ -150,13 +150,6 @@ const CartContainer = () => {
         order: "New Order",
       });
 
-      addNotification({
-        title: "Yayy!! Order Placed",
-        subtitle: `${personName}`,
-        message: `Order has been placed for ${personName}`,
-        theme: "darkblue",
-        native: true,
-      });
       // alert("Order Successfully placed");
 
       dispatch({
