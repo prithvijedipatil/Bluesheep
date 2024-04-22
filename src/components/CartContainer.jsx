@@ -7,6 +7,7 @@ import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import EmptyCart from "../img/emptyCart.svg";
 import CartItem from "./CartItem";
+import addNotification from "react-push-notification";
 import {
   FormControl,
   InputLabel,
@@ -18,6 +19,7 @@ import { useTheme } from "@emotion/react";
 import { addDoc, collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { useNavigate } from "react-router-dom";
+import ReactWhatsapp from "react-whatsapp";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -90,7 +92,7 @@ const CartContainer = () => {
         setGuests(dummyData);
       },
       (error) => {
-        console.error("Error fetching podcasts:", error);
+        console.error("Error fetching guests:", error);
       }
     );
 
@@ -99,6 +101,12 @@ const CartContainer = () => {
       return accumulator + item.qty * item.price;
     }, 0);
     setTot(totalPrice);
+    let finalOrdersWhatsapp = [];
+
+    setWhatsappMessage({
+      order: "New Order",
+    });
+
     console.log(tot);
   }, [tot, flag]);
 
@@ -134,14 +142,23 @@ const CartContainer = () => {
 
         await addDoc(collection(db, "LiveOrders"), orderlist);
         let orderlistings = JSON.stringify(finalOrders);
-        setWhatsappMessage({
-          Name: personName,
-          order: orderlistings,
-        });
       }
+      console.log("Whatsapp message", whatsappMessage);
       console.log(orderlist, "orderlist");
       console.log("order placed");
-      alert("Order Successfully placed");
+      setWhatsappMessage({
+        order: "New Order",
+      });
+
+      addNotification({
+        title: "Yayy!! Order Placed",
+        subtitle: `${personName}`,
+        message: `Order has been placed for ${personName}`,
+        theme: "darkblue",
+        native: true,
+      });
+      // alert("Order Successfully placed");
+
       dispatch({
         type: actionType.SET_CART_SHOW,
         cartShow: !cartShow,
@@ -237,7 +254,21 @@ const CartContainer = () => {
                 onClick={handleSubmit}
                 className="w-full p-2 rounded-full bg-gradient-to-tr bg-gradient-to-r from-cyan-500 to-blue-500 text-gray-50 text-lg my-2 hover:shadow-lg"
               >
-                Check Out
+                <ReactWhatsapp
+                  className="buttonn"
+                  style={{
+                    backgroundColor: "#1AA7EC",
+                    Color: "White",
+                    border: "none",
+                    marginLeft: "10%",
+                    marginRight: "auto",
+                  }}
+                  number="9902225769"
+                  onClick={handleSubmit}
+                  message={JSON.stringify(whatsappMessage)}
+                >
+                  Place Order
+                </ReactWhatsapp>
               </motion.button>
             ) : (
               <motion.button

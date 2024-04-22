@@ -19,6 +19,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { motion } from "framer-motion";
+import addNotification from "react-push-notification";
+import ReactWhatsapp from "react-whatsapp";
 
 const bull = (
   <Box
@@ -74,7 +76,7 @@ function LiveOrders() {
         orderFor: servedOrder[0].orderFor,
         order: servedOrder[0].order,
       };
-      servedOrder.length = 0;
+
       console.log(orderlist, "orderlist");
       let confirmation = prompt("Did you serve the Dish - type YES");
       if (confirmation == "YES") {
@@ -82,6 +84,14 @@ function LiveOrders() {
         let ref = doc(db, "LiveOrders", id.toString());
         await deleteDoc(ref);
         alert("Added to Bill");
+        addNotification({
+          title: "Yayy!! Order Served",
+          subtitle: `${servedOrder[0].orderFor[0]}`,
+          message: `Order has been served for ${servedOrder[0].orderFor[0]}`,
+          theme: "darkblue",
+          native: true,
+        });
+        servedOrder.length = 0;
         window.location.reload();
       }
     }
@@ -140,7 +150,20 @@ function LiveOrders() {
                           }}
                           onClick={() => handleServed(item.id)}
                         >
-                          Served
+                          <ReactWhatsapp
+                            className="buttonn"
+                            style={{
+                              backgroundColor: "#1AA7EC",
+                              Color: "White",
+                              border: "none",
+                              marginLeft: "10%",
+                              marginRight: "auto",
+                            }}
+                            number="9902225769"
+                            message={"Order Served"}
+                          >
+                            Served
+                          </ReactWhatsapp>
                         </Button>
                       </CardActions>
                     </motion.div>
