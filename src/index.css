@@ -38,6 +38,14 @@ table {
   border-spacing: 0 15px;
 }
 
+.whatsapp {
+  height: 40px !important;
+  width: 200px !important;
+  background-color: #1aa7ec;
+  color: White;
+  border: "none";
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

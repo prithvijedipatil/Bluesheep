@@ -11,11 +11,13 @@ const AddGuest = () => {
   const [guestName, setName] = useState("");
   const [email, setEmail] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const [number, setNumber] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const sendDataName = {
       name: guestName,
+      number: number,
     };
     await addDoc(collection(db, "Guests"), sendDataName);
     alert(`Successfully added ${guestName}`);
@@ -29,7 +31,7 @@ const AddGuest = () => {
       </h1>
       <div
         className="Checkin"
-        style={{ display: "flex", flexDirection: "column" }}
+        style={{ display: "flex", flexDirection: "column", gap: "36px" }}
       >
         {/* <input
           type="text"
@@ -44,6 +46,13 @@ const AddGuest = () => {
           variant="outlined"
           style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
           onChange={(e) => setName(e.target.value)}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Guest Number"
+          variant="outlined"
+          style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
+          onChange={(e) => setNumber(e.target.value)}
         />
         {/* <label for="html">Guest Email</label>
         <input

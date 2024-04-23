@@ -9,6 +9,7 @@ import BillDetails from "./components/BillDetails";
 import AddGuest from "./components/AddGuest";
 import RemoveGuest from "./components/RemoveGuest";
 import LiveOrders from "./components/LiveOrders";
+import EditOrders from "./components/EditOrders";
 
 const App = () => {
   const [{ foodItems }, dispatch] = useStateValue();
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/checkin" element={<AddGuest />} />
             <Route path="/checkout" element={<RemoveGuest />} />
             <Route path="/liveorders" element={<LiveOrders />} />
+            <Route path="/edit" element={<EditOrders />} />
           </Routes>
         </main>
       </div>

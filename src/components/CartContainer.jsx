@@ -45,6 +45,7 @@ const CartContainer = () => {
   const [{ cartShow, cartItems, user }, dispatch] = useStateValue();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
+  let label = [];
 
   // this is person selections
   const handleChange = (event) => {
@@ -68,6 +69,7 @@ const CartContainer = () => {
 
   Guests.forEach((doc) => {
     names.push(doc);
+    label.push(doc.name);
   });
   //
 
@@ -80,6 +82,7 @@ const CartContainer = () => {
 
   useEffect(async () => {
     // backend to select names
+
     const dummyData = [];
     await onSnapshot(
       query(collection(db, "Guests")),
@@ -90,6 +93,7 @@ const CartContainer = () => {
         });
         console.log(dummyData, "final");
         setGuests(dummyData);
+        setPersonName(dummyData[0].name);
       },
       (error) => {
         console.error("Error fetching guests:", error);
@@ -146,6 +150,7 @@ const CartContainer = () => {
       console.log("Whatsapp message", whatsappMessage);
       console.log(orderlist, "orderlist");
       console.log("order placed");
+      alert(" Yayy!!! Order Successfully placed");
       setWhatsappMessage({
         order: "New Orderr",
       });
@@ -235,16 +240,14 @@ const CartContainer = () => {
 
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-200 text-xl font-semibold">Total</p>
-              <p className="text-gray-200 text-xl font-semibold">
-                ₹{tot + 2.5}
-              </p>
+              <p className="text-gray-200 text-xl font-semibold">₹{tot}</p>
             </div>
 
             {user ? (
               <motion.button
                 whileTap={{ scale: 0.8 }}
                 type="button"
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
                 className="w-full p-2 rounded-full bg-gradient-to-tr bg-gradient-to-r from-cyan-500 to-blue-500 text-gray-50 text-lg my-2 hover:shadow-lg"
               >
                 <ReactWhatsapp

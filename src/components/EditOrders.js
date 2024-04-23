@@ -33,7 +33,7 @@ const bull = (
   </Box>
 );
 
-function LiveOrders() {
+function EditOrders() {
   const [liveOrders, setLiveOrders] = useState([]);
   const chatRef = useRef(null);
   const [flag, setFlag] = useState(false);
@@ -80,16 +80,15 @@ function LiveOrders() {
       };
 
       console.log(orderlist, "orderlist");
-      let confirmation = prompt("Did you serve the Dish - type YES");
+      let confirmation = prompt("Do you want to delete order type -  YES");
       if (confirmation == "YES") {
-        await addDoc(collection(db, "Orders"), orderlist);
         let ref = doc(db, "LiveOrders", id.toString());
         await deleteDoc(ref);
-        alert("Added to Bill");
-        let tempOrders = liveOrders.filter((item) => item.id != id);
+        alert("Deleted Successfully");
+        let editedOrders = liveOrders.filter((item) => item.id != id);
         dispatch({
           type: actionType.SET_CARTITEMS,
-          dynamicOrders: tempOrders,
+          dynamicOrders: editedOrders,
         });
 
         servedOrder.length = 0;
@@ -151,14 +150,15 @@ function LiveOrders() {
                           }}
                           onClick={() => handleServed(item.id)}
                         >
-                          Served
+                          {" "}
+                          Delete Order
                           {/* <ReactWhatsapp
                             className="whatsapp"
                             style={{}}
                             number="+919902225769"
-                            message={"Order Served"}
+                            message={"Order Deleted"}
                           >
-                            Served
+                            Delete Order
                           </ReactWhatsapp> */}
                         </Button>
                       </CardActions>
@@ -174,4 +174,4 @@ function LiveOrders() {
   );
 }
 
-export default LiveOrders;
+export default EditOrders;
