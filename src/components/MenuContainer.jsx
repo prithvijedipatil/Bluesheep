@@ -25,7 +25,7 @@ const MenuContainer = () => {
                 key={category.id}
                 className={`group ${
                   filter === category.urlParamName ? "bg-sky-500" : "bg-card"
-                } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg `}
+                } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-sky-500 `}
                 onClick={() => setFilter(category.urlParamName)}
               >
                 <div

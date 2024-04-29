@@ -10,12 +10,21 @@ import CartContainer from "./CartContainer";
 const MainContainer = () => {
   const [{ foodItems, cartShow }, dispatch] = useStateValue();
   const [scrollValue, setScrollValue] = useState(0);
+  const myRef = useRef(null);
 
   useEffect(() => {}, [scrollValue, cartShow]);
+  const executeScroll = () => myRef.current.scrollIntoView();
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center ">
       <HomeContainer />
+      <button
+        onClick={executeScroll}
+        type="button"
+        className="bg-gradient-to-br text-white from-cyan-500 to-blue-500 w-full md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
+      >
+        Order Now
+      </button>
 
       <section className="w-full my-6">
         <div className="w-full flex items-center justify-between">
@@ -46,7 +55,7 @@ const MainContainer = () => {
           data={foodItems?.filter((n) => n.category === "Favourites")}
         />
       </section>
-
+      <div ref={myRef}></div>
       <MenuContainer />
 
       {cartShow && <CartContainer />}
