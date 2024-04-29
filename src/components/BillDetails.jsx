@@ -15,6 +15,8 @@ import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import "../index.css";
 import { useNavigate } from "react-router-dom";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const BillDetails = () => {
   const [billDetails, setBillDetails] = useState([]);
@@ -27,6 +29,7 @@ const BillDetails = () => {
   const [showTable, setShowTable] = useState(false);
   const [total, setTotal] = useState("");
   const navigate = useNavigate();
+  const doc = new jsPDF();
 
   const handleChange = (event) => {
     const {
@@ -63,6 +66,12 @@ const BillDetails = () => {
   guests.forEach((doc) => {
     names.push(doc);
   });
+
+  const handleEmail = () => {
+    doc.autoTable({ html: "#my-table" });
+    doc.save("table.pdf");
+    alert("Downloaded successfully");
+  };
 
   const handleSubmit = async () => {
     if (personName) {
@@ -162,61 +171,73 @@ const BillDetails = () => {
         Get bill
       </button>
       {showTable && (
-        <div
-          style={{
-            width: "80%",
-            marginLeft: "auto",
-            marginRight: "auto",
-            overflowX: "auto",
-            marginTop: "20px",
-          }}
-        >
-          <table>
-            <thead>
-              <tr
-                style={{
-                  border: "1px solid black",
-                  borderCollapse: "collapse",
-                }}
-              >
-                <th>Order-Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            {console.log(billDetails)}
-            {billDetails &&
-              billDetails.map((item) => {
-                return (
-                  <>
-                    {item.order.map((orderData) => {
-                      return (
-                        <>
-                          <tr>
-                            {/* <td key={item.id} colSpan={item.order.length}>
+        <form>
+          <div
+            style={{
+              width: "80%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              overflowX: "auto",
+              marginTop: "20px",
+            }}
+          >
+            <table name="table" id="my-table">
+              <thead>
+                <tr
+                  style={{
+                    border: "1px solid black",
+                    borderCollapse: "collapse",
+                  }}
+                >
+                  <th>Order-Name</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              {console.log(billDetails)}
+              {billDetails &&
+                billDetails.map((item) => {
+                  return (
+                    <>
+                      {item.order.map((orderData) => {
+                        return (
+                          <>
+                            <tr>
+                              {/* <td key={item.id} colSpan={item.order.length}>
                             {item.date.toString()}
                           </td> */}
-                            <td>{orderData.name}</td>
-                            <td>{orderData.price}</td>
-                            <td>{orderData.quantity}</td>
-                            <td>
-                              {eval(orderData.quantity * orderData.price)}
-                            </td>
-                          </tr>
-                          {/* {
+                              <td>{orderData.name}</td>
+                              <td>{orderData.price}</td>
+                              <td>{orderData.quantity}</td>
+                              <td>
+                                {eval(orderData.quantity * orderData.price)}
+                              </td>
+                            </tr>
+                            {/* {
                           (total = eval(
                             total + eval(orderData.quantity * orderData.price)
                           ))
                         } */}
-                        </>
-                      );
-                    })}
-                  </>
-                );
-              })}
-          </table>
-        </div>
+                          </>
+                        );
+                      })}
+                    </>
+                  );
+                })}
+            </table>
+          </div>
+          <button
+            style={{
+              marginTop: "60px",
+            }}
+            type="submit"
+            onClick={handleEmail}
+            className="bg-gradient-to-br text-white from-cyan-500 to-blue-500 w-full md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
+          >
+            Download
+          </button>
+        </form>
       )}
       {console.log("totaaallll", total)}
       <h1 style={{ margin: "60px" }}>Total Bill :{total} </h1>
