@@ -41,11 +41,11 @@ const RowContainer = ({ flag, data, scrollValue }) => {
         data.map((item) => (
           <div
             key={item?.id}
-            className="w-475 h-[275px] min-w-[475px] md:w-600 md:min-w-[400px]  bg-cardOverlay rounded-lg py-2 px-4  my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-col relative"
+            className="w-275 h-[175px] min-w-[275px] md:w-600 md:min-w-[200px] min-h-[100px] bg-cardOverlay rounded-lg py-2 px-6  my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-row relative"
           >
-            <div className="w-full flex items-center space-between gap-28 mx-5 my-10">
-              <motion.div
-                className="w-40 h-40 -mt-8 drop-shadow-2xl"
+            <div className="w-full flex items-center  justify-center mx-5 my-10">
+              {/* <motion.div
+                className="w-20 h-20 -mt-8 drop-shadow-2xl"
                 whileHover={{ scale: 1.2 }}
               >
                 <img
@@ -53,7 +53,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
                   alt=""
                   className="w-full h-full object-contain"
                 />
-              </motion.div>
+              </motion.div> */}
               <motion.div
                 whileTap={{ scale: 0.75 }}
                 className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
@@ -66,7 +66,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
               </motion.div>
             </div>
 
-            <div className="w-full mx-6 flex flex-col items-start gap-3 justify-start -mt-8">
+            <div className="w-full mx-6 flex flex-col items-start gap-3 justify-start mt-8">
               <p className="text-black font-bold text-3xl md:text-lg tracking-wide ">
                 {item?.title}
               </p>

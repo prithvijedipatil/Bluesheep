@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import "../index.css";
+import { SwipeableButton } from "react-swipeable-button";
 
 import {
   Query,
@@ -140,6 +141,14 @@ function LiveOrders() {
                       })}
 
                       <CardActions>
+                        {/* <div className="w-[500px] h-[100px] bg-white">
+                          <SwipeableButton
+                            onSuccess={() => handleServed(item.id)}
+                            text="Swipe to Serve!"
+                            text_unlocked="Served"
+                            color="#16362d"
+                          />
+                        </div> */}
                         <Button
                           size="medium"
                           style={{
@@ -151,15 +160,14 @@ function LiveOrders() {
                           }}
                           onClick={() => handleServed(item.id)}
                         >
-                          Served
                           {/* <ReactWhatsapp
                             className="whatsapp"
                             style={{}}
                             number="+919902225769"
                             message={"Order Served"}
-                          >
-                            Served
-                          </ReactWhatsapp> */}
+                          > */}
+                          Served
+                          {/* </ReactWhatsapp> */}{" "}
                         </Button>
                       </CardActions>
                     </div>
