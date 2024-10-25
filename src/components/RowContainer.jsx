@@ -40,6 +40,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
       {data && data.length > 0 ? (
         data.map((item) => (
           <div
+            onClick={() => setItems([...cartItems, item])}
             key={item?.id}
             className="w-275 h-[175px] min-w-[275px] md:w-600 md:min-w-[200px] min-h-[100px] bg-cardOverlay rounded-lg py-2 px-6  my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-row relative"
           >

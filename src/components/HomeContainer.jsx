@@ -9,7 +9,7 @@ const HomeContainer = () => {
   return (
     <section className="grid grid-cols-1  gap-2 w-full " id="home">
       <div className="py-2 my-10  flex flex-col  justify-center gap-10">
-        <div className="flex flex-row mx-10 w-full gap-24">
+        {/* <div className="flex flex-row mx-10 w-full gap-24">
           <div className="py-2  flex   justify-center gap-6 px-5 w-4">
             <div className="flex items-center gap-2  justify-center bg-sky-400 px-4 py-1 rounded-full whitespace-nowrap ">
               <p className="text-base text-white font-semibold p-1 w-full">
@@ -32,7 +32,7 @@ const HomeContainer = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
         <p className="text-[3.0rem] lg:text-[4.5rem] font-bold tracking-wide text-headingColor">
           Savour home like food at
           <span className="text-sky-400 text-[3rem] lg:text-[5rem]">

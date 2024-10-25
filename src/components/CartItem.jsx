@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BiMinus, BiPlus } from "react-icons/bi";
+import { BiCross, BiMinus, BiPlus } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import { fetchCart } from "../utils/fetchLocalStorageData";
+import { RxCross2 } from "react-icons/rx";
+import { BiXCircle } from "react-icons/bi";
 let items = [];
 
 const CartItem = ({ item, setFlag, flag }) => {
@@ -28,7 +30,7 @@ const CartItem = ({ item, setFlag, flag }) => {
         }
       });
       cartDispatch();
-    } else {
+    } else if (action == "remove") {
       // initial state value is one so you need to check if 1 then remove it
       if (qty == 0.5) {
         items = cartItems.filter((item) => item.id !== id);
@@ -44,6 +46,10 @@ const CartItem = ({ item, setFlag, flag }) => {
         });
         cartDispatch();
       }
+    } else {
+      items = cartItems.filter((item) => item.id !== id);
+      setFlag(flag + 1);
+      cartDispatch();
     }
   };
 
@@ -68,7 +74,7 @@ const CartItem = ({ item, setFlag, flag }) => {
       </div>
 
       {/* button section */}
-      <div className="group flex items-center gap-2 ml-auto cursor-pointer">
+      <div className="group flex items-center gap-8 ml-auto cursor-pointer">
         <motion.div
           whileTap={{ scale: 0.75 }}
           onClick={() => updateQty("remove", item?.id)}
@@ -85,6 +91,20 @@ const CartItem = ({ item, setFlag, flag }) => {
           onClick={() => updateQty("add", item?.id)}
         >
           <BiPlus className="text-gray-50 " />
+        </motion.div>
+        <motion.div
+          style={({ width: "32px !important" }, { height: "32px !important" })}
+          whileTap={{ scale: 0.75 }}
+          onClick={() => updateQty("delete", item?.id)}
+        >
+          <BiXCircle
+            style={
+              ({ width: "32px !important" }, { height: "32px !important" })
+            }
+            color="white"
+            fontSize={"24px"}
+            className="text-gray-50 "
+          />
         </motion.div>
       </div>
     </div>

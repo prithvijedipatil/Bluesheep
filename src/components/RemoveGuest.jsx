@@ -21,37 +21,54 @@ const RemoveGuest = () => {
   let names = [];
   const theme = useTheme();
   const [personName, setPersonName] = useState("nafisa");
+  const [Flag, setFlag] = useState(false);
   const [guests, setGuests] = useState([]);
   const [selectedGuest, setSelectedGuest] = useState([]);
   let guestID = [];
-  const [refresh, setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(true);
   const navigate = useNavigate();
+  console.log("before reload");
 
+  console.log("After reload");
   window.onload = (event) => {
-    onSnapshot(
-      query(collection(db, "Guests")),
-      (querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          dummyData.push({ id: doc.id, ...doc.data() });
-          //   console.log("db hitting");
-        });
-        // console.log(dummyData, "data received");
-        setGuests(dummyData);
-      },
-      (error) => {
-        console.error("Error fetching podcasts:", error);
-      }
-    );
+    // onSnapshot(
+    //   query(collection(db, "Guests")),
+    //   (querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //       dummyData.push({ id: doc.id, ...doc.data() });
+    //       // console.log("db hitting");
+    //     });
+    //     console.log(dummyData, "data received");
+    //     setGuests(dummyData);
+    //   },
+    //   (error) => {
+    //     console.error("Error fetching podcasts:", error);
+    //   }
+    // );
   };
 
   guests.forEach((item) => {
     names.push(item.name);
   });
 
-  //   useEffect(() => {
+  useEffect(() => {
+    onSnapshot(
+      query(collection(db, "Guests")),
+      (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          dummyData.push({ id: doc.id, ...doc.data() });
+          // console.log("db hitting");
+        });
+        console.log(dummyData, "data received");
+        setGuests(dummyData);
+      },
+      (error) => {
+        console.error("Error fetching podcasts:", error);
+      }
+    );
+  }, []);
 
-  //   }, []);
-
+  console.log(names, "names of guests");
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -91,6 +108,13 @@ const RemoveGuest = () => {
 
   console.log(names, "names");
 
+  const getGuests = () => {
+    console.log("page relaoding");
+    setFlag(true);
+    if (Flag) window.location.reload();
+    console.log("page relaoded");
+  };
+
   const handleSubmit = async () => {
     console.log(guests, "submit");
     console.log(selectedGuest, "selectedGuest");
@@ -113,20 +137,36 @@ const RemoveGuest = () => {
 
   return (
     <>
-      <h1 style={{ marginLeft: "1%", marginTop: "20%", marginBottom: "10%" }}>
+      <h1 style={{ marginLeft: "1%", marginTop: "20%", marginBottom: "0%" }}>
         Guests Checkout
       </h1>
-      <div>
-        <FormControl className="formControl">
-          <InputLabel id="demo-multiple-name-label">Name</InputLabel>
-          <Select
+
+      <button
+        style={{
+          marginTop: "20px",
+          width: "50%",
+          marginLeft: "0px",
+          marginRight: "auto",
+        }}
+        onClick={getGuests}
+        type="button"
+        className="bg-gradient-to-br text-white from-cyan-500 to-blue-500  md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
+      >
+        {" "}
+        Retrive Guests
+      </button>
+
+      {/* { <FormControl className="formControl"> */}
+      {Flag && (
+        <>
+          {/* <Select
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"
             value={personName}
             onChange={(e) => handleChange(e)}
             input={<OutlinedInput label="Name" />}
             MenuProps={MenuProps}
-            style={{ width: "300px" }}
+            style={{ width: "300px", marginTop: "50px" }}
           >
             {names.map((name) => (
               <MenuItem
@@ -137,23 +177,48 @@ const RemoveGuest = () => {
                 {name}
               </MenuItem>
             ))}
-          </Select>
-        </FormControl>
-      </div>
-      <button
-        style={{
-          marginTop: "60px",
-          width: "50%",
-          marginLeft: "60px",
-          marginRight: "auto",
-        }}
-        onClick={handleSubmit}
-        type="button"
-        className="bg-gradient-to-br text-white from-cyan-500 to-blue-500  md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
-      >
-        {" "}
-        Remove Guest
-      </button>
+          </Select> */}
+
+          <select
+            className="w-full p-4 px-8 rounded-lg bg-cartItem text-white flex items-center gap-2"
+            value={personName}
+            onChange={(e) => handleChange(e)}
+            placeholder="Please select the guest name"
+            style={
+              ({ width: "200px" },
+              { alignContent: "center" },
+              { padding: "20px !important" },
+              { marginTop: "90px" })
+            }
+          >
+            {names.map((item) => (
+              <option
+                style={{ color: "white !important" }}
+                key={item}
+                value={item}
+              >
+                {item}
+              </option>
+            ))}
+          </select>
+          {/* </FormControl> */}
+
+          <button
+            style={{
+              marginTop: "60px",
+              width: "50%",
+              marginLeft: "60px",
+              marginRight: "auto",
+            }}
+            onClick={handleSubmit}
+            type="button"
+            className="bg-gradient-to-br text-white from-cyan-500 to-blue-500  md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
+          >
+            {" "}
+            Remove Guest
+          </button>
+        </>
+      )}
     </>
   );
 };
