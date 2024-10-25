@@ -26,7 +26,14 @@ const AddGuest = () => {
   };
   return (
     <>
-      <h1 style={{ marginLeft: "10%", marginTop: "20%", marginBottom: "10%" }}>
+      <h1
+        style={{
+          marginLeft: "10%",
+          marginTop: "20%",
+          marginBottom: "10%",
+          fontSize: "32px",
+        }}
+      >
         Guests Check in
       </h1>
       <div
@@ -40,18 +47,36 @@ const AddGuest = () => {
           Place={guestName}
           onChange={(e) => setName(e.target.value)}
         /> */}
-        <TextField
-          id="outlined-basic"
-          label="Guest name"
+        <label htmlFor="GN">Guest Name</label>
+        <input
+          id="GN"
+          label="Guestname"
           variant="outlined"
-          style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
+          placeholder="Guest Name"
+          className="w-full p-4 px-8 rounded-lg bg-cartItem text-white flex items-center gap-2"
           onChange={(e) => setName(e.target.value)}
+          style={
+            ({ width: "200px" },
+            { alignContent: "center" },
+            { padding: "20px !important" },
+            { marginTop: "00px" })
+          }
         />
-        <TextField
-          id="outlined-basic"
+        <label htmlFor="GPh" style={{ marginTop: "50px" }}>
+          Guest Number
+        </label>
+        <input
+          id="Gph"
           label="Guest Number"
+          placeholder="+91-XXXXXXXXXX"
           variant="outlined"
-          style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}
+          style={
+            ({ width: "200px" },
+            { alignContent: "center" },
+            { padding: "20px !important" },
+            { marginTop: "00px" })
+          }
+          className="w-full p-4 px-8 rounded-lg bg-cartItem text-white flex items-center gap-2"
           onChange={(e) => setNumber(e.target.value)}
         />
         {/* <label for="html">Guest Email</label>
