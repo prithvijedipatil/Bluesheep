@@ -186,7 +186,7 @@ const Header = () => {
         <Menu
           menuButton={
             <MenuButton>
-              <IoMenu />
+              <IoMenu style={{ fontSize: "32px" }} />
             </MenuButton>
           }
           transition
