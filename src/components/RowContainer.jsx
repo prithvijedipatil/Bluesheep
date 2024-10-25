@@ -30,6 +30,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
 
   return (
     <div
+      style={{ border: "2px solid blue !important" }}
       ref={rowContainer}
       className={`w-full flex items-center gap-3  my-12 scroll-smooth  ${
         flag
@@ -40,11 +41,15 @@ const RowContainer = ({ flag, data, scrollValue }) => {
       {data && data.length > 0 ? (
         data.map((item) => (
           <div
+            style={{ border: "2px solid blue !important" }}
             onClick={() => setItems([...cartItems, item])}
             key={item?.id}
-            className="w-275 h-[175px] min-w-[275px] md:w-600 md:min-w-[200px] min-h-[100px] bg-cardOverlay rounded-lg py-2 px-6  my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-row relative"
+            className="w-275 h-[175px] min-w-[275px] md:w-600 md:min-w-[200px] min-h-[100px] bg-cardOverlay rounded-lg py-2 px-6  my-12 backdrop-blur-lg border-4  flex flex-row relative"
           >
-            <div className="w-full flex items-center  justify-center mx-5 my-10">
+            <div
+              className="w-full flex items-center  justify-center mx-5 my-10 "
+              style={{ border: "2px solid blue !important" }}
+            >
               {/* <motion.div
                 className="w-20 h-20 -mt-8 drop-shadow-2xl"
                 whileHover={{ scale: 1.2 }}
@@ -67,7 +72,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
               </motion.div>
             </div>
 
-            <div className="w-full mx-6 flex flex-col items-start gap-3 justify-start mt-8">
+            <div className="w-full  mx-6 flex flex-col items-start gap-3 justify-start mt-8">
               <p className="text-black font-bold text-3xl md:text-lg tracking-wide ">
                 {item?.title}
               </p>
