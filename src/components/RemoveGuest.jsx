@@ -20,7 +20,7 @@ const RemoveGuest = () => {
   let dummyData = [];
   let names = [];
   const theme = useTheme();
-  const [personName, setPersonName] = useState("nafisa");
+  const [personName, setPersonName] = useState("Guest Name");
   const [Flag, setFlag] = useState(false);
   const [guests, setGuests] = useState([]);
   const [selectedGuest, setSelectedGuest] = useState([]);
@@ -69,6 +69,7 @@ const RemoveGuest = () => {
   }, []);
 
   console.log(names, "names of guests");
+  //setSelectedGuest(names[0]);
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -116,23 +117,47 @@ const RemoveGuest = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(guests, "submit");
-    console.log(selectedGuest, "selectedGuest");
-    guestID = guests.filter((item) => {
-      if (item.name == selectedGuest) return item.id;
-    });
+    if (guests.length > 1) {
+      console.log(guests, "submit");
+      console.log(selectedGuest, "selectedGuest");
 
-    console.log(guestID[0].id, "guestID");
+      guestID = guests.filter((item) => {
+        if (item.name == selectedGuest) return item.id;
+      });
 
-    let id = guestID[0].id;
-    let ref = doc(db, "Guests", id.toString());
-    await deleteDoc(ref);
-    // const userRef = doc(db, "Guests", id.toString());
+      console.log(guestID[0].id, "guestID");
 
-    alert(`${guestID[0].name} removed`);
-    setRefresh(!refresh);
-    // window.location.reload();
-    navigate("/");
+      let id = guestID[0].id;
+      let ref = doc(db, "Guests", id.toString());
+      await deleteDoc(ref);
+      // const userRef = doc(db, "Guests", id.toString());
+
+      alert(`${guestID[0].name} removed`);
+      setRefresh(!refresh);
+      // window.location.reload();
+      navigate("/");
+    } else {
+      guestID = guests.filter((item) => {
+        return item.id;
+        let id = guestID[0].id;
+        let ref = doc(db, "Guests", id.toString());
+        deleteDoc(ref);
+
+        alert(`${guestID[0].name} removed`);
+        setRefresh(!refresh);
+
+        navigate("/");
+      });
+      let id = guestID[0].id;
+      let ref = doc(db, "Guests", id.toString());
+      await deleteDoc(ref);
+      // const userRef = doc(db, "Guests", id.toString());
+
+      alert(`${guestID[0].name} removed`);
+      setRefresh(!refresh);
+      // window.location.reload();
+      navigate("/");
+    }
   };
 
   return (
@@ -183,7 +208,7 @@ const RemoveGuest = () => {
             className="w-full p-4 px-8 rounded-lg bg-cartItem text-white flex items-center gap-2"
             value={personName}
             onChange={(e) => handleChange(e)}
-            placeholder="Please select the guest name"
+            InputLabel="Please select the guest name"
             style={
               ({ width: "200px" },
               { alignContent: "center" },
