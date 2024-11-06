@@ -35,6 +35,7 @@ const MenuProps = {
 
 const CartContainer = () => {
   const navigate = useNavigate();
+  let x = "";
   let finalOrders = [];
   const names = [];
   let orderlist = {};
