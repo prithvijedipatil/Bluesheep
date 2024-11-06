@@ -98,7 +98,7 @@ const CartContainer = () => {
         setPersonName(dummyData[0].name);
       },
       (error) => {
-        console.error("Error fetching guests:", errorr);
+        console.error("Error fetching guests:ss", error);
       }
     );
 
