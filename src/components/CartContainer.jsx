@@ -3,10 +3,11 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { RiRefreshFill } from "react-icons/ri";
 
 import { motion } from "framer-motion";
-import { useStateValue } from "../context/StateProvider";
+
 import { actionType } from "../context/reducer";
 import EmptyCart from "../img/emptyCart.svg";
 import CartItem from "./CartItem";
+import { useStateValue } from "../context/StateProvider";
 
 import {
   FormControl,
@@ -22,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import ReactWhatsapp from "react-whatsapp";
 
 const ITEM_HEIGHT = 48;
+
 let orderlistings = "";
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -41,6 +43,7 @@ const CartContainer = () => {
   let orderlist = {};
   const theme = useTheme();
   const [personName, setPersonName] = useState("");
+
   const [Guests, setGuests] = useState([]);
   const [whatsappMessage, setWhatsappMessage] = useState("");
 
@@ -125,48 +128,61 @@ const CartContainer = () => {
     localStorage.setItem("cartItems", JSON.stringify([]));
   };
 
+  //login
+
   //submit
+
   const handleSubmit = async () => {
-    if (personName) {
-      if (cartItems.length > 0) {
-        console.log(cartItems, "befre sending");
-        cartItems.forEach((item) =>
-          finalOrders.push({
-            name: item.title,
-            price: item.price,
-            quantity: item.qty,
-          })
-        );
+    if (
+      user.email == "writetoprithvipatil@gmail.com" ||
+      user.email == "bluesheeptirthan@gmail.com"
+    ) {
+      if (personName) {
+        if (cartItems.length > 0) {
+          console.log(cartItems, "befre sending");
+          cartItems.forEach((item) =>
+            finalOrders.push({
+              name: item.title,
+              price: item.price,
+              quantity: item.qty,
+            })
+          );
 
-        orderlist = {
-          date: Math.floor(Date.now() / 1000),
-          orderFor: personName,
-          order: finalOrders,
-        };
-        console.log("sending data", finalOrders);
-        console.log("orderlist", orderlist);
-        sessionStorage.setItem("whatsappmessage", JSON.stringify(orderlist));
-        await addDoc(collection(db, "LiveOrders"), orderlist);
-        orderlistings = JSON.stringify(orderlist);
-        //setWhatsappMessage(orderlistings);
-        console.log("whatsapp message", orderlistings);
+          orderlist = {
+            date: Math.floor(Date.now() / 1000),
+            orderFor: personName,
+            order: finalOrders,
+          };
+          console.log("sending data", finalOrders);
+          console.log("orderlist", orderlist);
+          sessionStorage.setItem("whatsappmessage", JSON.stringify(orderlist));
+          await addDoc(collection(db, "LiveOrders"), orderlist);
+          orderlistings = JSON.stringify(orderlist);
+          //setWhatsappMessage(orderlistings);
+          console.log("whatsapp message", orderlistings);
 
-        console.log("localmessage", sessionStorage.getItem("whatsappmessage"));
+          console.log(
+            "localmessage",
+            sessionStorage.getItem("whatsappmessage")
+          );
+        }
+        console.log("Whatsapp message", whatsappMessage);
+        console.log(orderlist, "orderlist");
+        console.log("order placed");
+        alert(" Yayy!!! Order Successfully placed");
+
+        // alert("Order Successfully placed");
+
+        dispatch({
+          type: actionType.SET_CART_SHOW,
+          cartShow: !cartShow,
+        });
+        clearCart();
+      } else {
+        alert("please select guest");
       }
-      console.log("Whatsapp message", whatsappMessage);
-      console.log(orderlist, "orderlist");
-      console.log("order placed");
-      alert(" Yayy!!! Order Successfully placed");
-
-      // alert("Order Successfully placed");
-
-      dispatch({
-        type: actionType.SET_CART_SHOW,
-        cartShow: !cartShow,
-      });
-      clearCart();
     } else {
-      alert("please select guest");
+      alert("please log in");
     }
   };
 
