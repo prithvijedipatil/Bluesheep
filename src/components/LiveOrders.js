@@ -80,8 +80,8 @@ function LiveOrders() {
       };
 
       console.log(orderlist, "orderlist");
-      let confirmation = prompt("Did you serve the Dish - type YES");
-      if (confirmation == "YES") {
+      let confirmation = window.confirm("Did you serve the Dish - type OK");
+      if (confirmation) {
         await addDoc(collection(db, "Orders"), orderlist);
         let ref = doc(db, "LiveOrders", id.toString());
         await deleteDoc(ref);

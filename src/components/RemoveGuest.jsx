@@ -61,6 +61,8 @@ const RemoveGuest = () => {
         });
         console.log(dummyData, "data received");
         setGuests(dummyData);
+        setSelectedGuest(dummyData[0].name);
+        console.log(selectedGuest, "default GUEST");
       },
       (error) => {
         console.error("Error fetching podcasts:", error);
@@ -99,6 +101,7 @@ const RemoveGuest = () => {
       typeof value === "string" ? value.split(",") : value
     );
     setSelectedGuest(event.target.value);
+
     console.log(selectedGuest, "selectedGuest");
     // guestID = guests.filter((item) => {
     //   if (item.name == selectedGuest) return item.id;

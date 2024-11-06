@@ -28,6 +28,7 @@ const BillDetails = () => {
   const [{ billItems }, dispatch] = useStateValue();
   const [showTable, setShowTable] = useState(false);
   const [total, setTotal] = useState("");
+  const [Flag, setFlag] = useState(false);
   const navigate = useNavigate();
   const doc = new jsPDF();
 
@@ -54,6 +55,7 @@ const BillDetails = () => {
         });
         console.log(dummyData, "final");
         setGuests(dummyData);
+        setPersonName(dummyData[0].name);
       },
       (error) => {
         console.error("Error fetching podcasts:", error);
@@ -71,6 +73,13 @@ const BillDetails = () => {
     doc.autoTable({ html: "#my-table" });
     doc.save("table.pdf");
     alert("Downloaded successfully");
+  };
+
+  const getGuests = () => {
+    console.log("page relaoding");
+    setFlag(true);
+    if (Flag) window.location.reload();
+    console.log("page relaoded");
   };
 
   const handleSubmit = async () => {
@@ -120,127 +129,153 @@ const BillDetails = () => {
 
   return (
     <>
-      <div
-        style={{
-          marginTop: "50px",
-          fontWeight: "400",
-          fontSize: "24px",
-        }}
-      >
-        <h1>Please select the guest name to bill</h1>
-      </div>
-      <div
-        style={{
-          marginTop: "50px",
-        }}
-        className="w-full flex items-center justify-between"
-      >
-        {/* <p className="text-gray-400 text-lg">Delivery</p>
-              <p className="text-gray-400 text-lg">$ 2.5</p> */}
+      <h1 style={{ marginLeft: "1%", marginTop: "20%", marginBottom: "0%" }}>
+        Generate Bill
+      </h1>
 
-        <select
-          className="w-full p-1 px-2 rounded-lg bg-cartItem text-white flex items-center gap-2"
-          value={personName}
-          onChange={handleChange}
-          placeholder="Please select the guest name"
-          style={
-            ({ width: "200px" },
-            { alignContent: "center" },
-            { padding: "30px" })
-          }
-        >
-          {names.map((item) => (
-            <option
-              style={{ color: "white !important" }}
-              key={item.id}
-              value={item.name}
-            >
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
       <button
         style={{
-          marginTop: "60px",
+          marginTop: "20px",
+          width: "50%",
+          marginLeft: "0px",
+          marginRight: "auto",
         }}
-        onClick={handleSubmit}
+        onClick={getGuests}
         type="button"
-        className="bg-gradient-to-br text-white from-cyan-500 to-blue-500 w-full md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
+        className="bg-gradient-to-br text-white from-cyan-500 to-blue-500  md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
       >
-        Get bill
+        {" "}
+        Retrive Guests
       </button>
-      {showTable && (
-        <form>
+      {Flag && (
+        <>
           <div
             style={{
-              width: "80%",
-              marginLeft: "auto",
-              marginRight: "auto",
-              overflowX: "auto",
-              marginTop: "20px",
+              marginTop: "50px",
+              fontWeight: "400",
+              fontSize: "24px",
             }}
           >
-            <table name="table" id="my-table">
-              <thead>
-                <tr
-                  style={{
-                    border: "1px solid black",
-                    borderCollapse: "collapse",
-                  }}
+            <h1>Please select the guest name to bill</h1>
+          </div>
+          <div
+            style={{
+              marginTop: "50px",
+            }}
+            className="w-full flex items-center justify-between"
+          >
+            {/* <p className="text-gray-400 text-lg">Delivery</p>
+              <p className="text-gray-400 text-lg">$ 2.5</p> */}
+
+            <select
+              className="w-full p-1 px-2 rounded-lg bg-cartItem text-white flex items-center gap-2"
+              value={personName}
+              onChange={handleChange}
+              placeholder="Please select the guest name"
+              style={
+                ({ width: "200px" },
+                { alignContent: "center" },
+                { padding: "30px" })
+              }
+            >
+              {names.map((item) => (
+                <option
+                  style={{ color: "white !important" }}
+                  key={item.id}
+                  value={item.name}
                 >
-                  <th>Order-Name</th>
-                  <th>Quantity</th>
-                  <th>Price</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              {console.log(billDetails)}
-              {billDetails &&
-                billDetails.map((item) => {
-                  return (
-                    <>
-                      {item.order.map((orderData) => {
-                        return (
-                          <>
-                            <tr>
-                              {/* <td key={item.id} colSpan={item.order.length}>
-                            {item.date.toString()}
-                          </td> */}
-                              <td>{orderData.name}</td>
-                              <td>{orderData.price}</td>
-                              <td>{orderData.quantity}</td>
-                              <td>
-                                {eval(orderData.quantity * orderData.price)}
-                              </td>
-                            </tr>
-                            {/* {
-                          (total = eval(
-                            total + eval(orderData.quantity * orderData.price)
-                          ))
-                        } */}
-                          </>
-                        );
-                      })}
-                    </>
-                  );
-                })}
-            </table>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
           <button
             style={{
               marginTop: "60px",
             }}
-            type="submit"
-            onClick={handleEmail}
+            onClick={handleSubmit}
+            type="button"
             className="bg-gradient-to-br text-white from-cyan-500 to-blue-500 w-full md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
           >
-            Download
+            Get bill
           </button>
-        </form>
+          {showTable && (
+            <form>
+              <div
+                style={{
+                  width: "80%",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  overflowX: "auto",
+                  marginTop: "20px",
+                }}
+              >
+                <table name="table" id="my-table">
+                  <thead>
+                    <tr
+                      style={{
+                        border: "1px solid black",
+                        borderCollapse: "collapse",
+                      }}
+                    >
+                      <th>Order-Name</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  {console.log(billDetails)}
+                  {billDetails &&
+                    billDetails.map((item) => {
+                      return (
+                        <>
+                          {item.order.map((orderData) => {
+                            return (
+                              <>
+                                <tr>
+                                  {/* <td key={item.id} colSpan={item.order.length}>
+                            {item.date.toString()}
+                          </td> */}
+                                  <td>{orderData.name}</td>
+                                  <td>{orderData.price}</td>
+                                  <td>{orderData.quantity}</td>
+                                  <td>
+                                    {eval(orderData.quantity * orderData.price)}
+                                  </td>
+                                </tr>
+                                {/* {
+                          (total = eval(
+                            total + eval(orderData.quantity * orderData.price)
+                          ))
+                        } */}
+                              </>
+                            );
+                          })}
+                        </>
+                      );
+                    })}
+                </table>
+              </div>
+              <button
+                style={{
+                  marginTop: "60px",
+                }}
+                type="submit"
+                onClick={handleEmail}
+                className="bg-gradient-to-br text-white from-cyan-500 to-blue-500 w-full md:w-auto px-4 py-2  rounded-lg hover:shadow-lg transition-all ease-in-out duration-100"
+              >
+                Download
+              </button>
+            </form>
+          )}
+          {console.log("totaaallll", total)}
+          <h1
+            style={{ margin: "30px", fontWeight: "bolder", fontSize: "28px" }}
+          >
+            Total Bill :{total}{" "}
+          </h1>
+        </>
       )}
-      {console.log("totaaallll", total)}
-      <h1 style={{ margin: "60px" }}>Total Bill :{total} </h1>
     </>
   );
 };

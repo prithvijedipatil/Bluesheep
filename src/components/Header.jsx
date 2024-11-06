@@ -7,7 +7,7 @@ import { app } from "../firebase.config";
 
 import Logo from "../img/Sheep.png";
 import Avatar from "../img/avatar.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 
@@ -15,14 +15,17 @@ import { Menu, MenuItem, MenuButton } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/zoom.css";
 
+import { useNavigate } from "react-router-dom";
 import FloatGroup from "react-float-button";
 import { Button } from "@mui/material";
 
 import { IoMenu } from "react-icons/io5";
+import { WidthFull } from "@mui/icons-material";
 
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
 
   const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
 
@@ -181,7 +184,6 @@ const Header = () => {
           <img src={Logo} className="w-16 object-cover" alt="logo" />
           <p className="text-headingColor text-xl font-bold"> Bluesheep</p>
         </Link>
-
         <Menu
           menuButton={
             <MenuButton>
@@ -215,25 +217,72 @@ const Header = () => {
                 </li>
               </motion.ul>
             </MenuItem> */}
-          <MenuItem>
-            <Link to="/">Menu</Link>
+
+          <MenuItem
+            value="Menu"
+            onClick={(e) => {
+              console.log(`[MenuItem] ${e.value} clicked`);
+              navigate("/");
+            }}
+          >
+            Menu
           </MenuItem>
-          <MenuItem>
-            <Link to="/checkin">Check-in</Link>
+          <MenuItem
+            value="Checkin"
+            onClick={(e) => {
+              console.log(`[MenuItem] ${e.value} clicked`);
+              navigate("/checkin");
+            }}
+          >
+            Check-in
           </MenuItem>
-          <MenuItem>
-            <Link to="/checkout">Check-out</Link>
+
+          <MenuItem
+            value="Checkout"
+            onClick={(e) => {
+              console.log(`[MenuItem] ${e.value} clicked`);
+              navigate("/checkout");
+            }}
+          >
+            Check-out
           </MenuItem>
-          <MenuItem>
-            <Link to="/bill">Bill</Link>
+          <MenuItem
+            value="bill"
+            onClick={(e) => {
+              console.log(`[MenuItem] ${e.value} clicked`);
+              navigate("/bill");
+            }}
+          >
+            Bill
           </MenuItem>
-          <MenuItem>
-            <Link to="/liveorders">Live</Link>
+          <MenuItem
+            value="Checkin"
+            onClick={(e) => {
+              console.log(`[MenuItem] ${e.value} clicked`);
+              navigate("/liveorders");
+            }}
+          >
+            Live Orders
           </MenuItem>
-          <MenuItem>
-            <Link to="/edit">Edit</Link>
+          <MenuItem
+            value="Checkin"
+            onClick={(e) => {
+              console.log(`[MenuItem] ${e.value} clicked`);
+              navigate("/edit");
+            }}
+          >
+            Edit/Delete
           </MenuItem>
-          <MenuItem onClick={login}>Login</MenuItem>
+          <MenuItem
+            value="Checkin"
+            onClick={(e) => {
+              console.log(`[MenuItem] ${e.value} clicked`);
+              navigate("/login");
+            }}
+          >
+            Log-in
+          </MenuItem>
+
           <MenuItem>
             <p
               className=" p-2 rounded-md shadow-md flex items-center justify-center bg-gray-200 gap-3 cursor-pointer hover:bg-gray-300 transition-all duration-100 ease-in-out text-textColor text-base"
@@ -291,6 +340,7 @@ const Header = () => {
             </>
           </MenuItem>
         </Menu>
+
         {
           // <FloatGroup style={{ margin: "0 10px" }} margin={80} delay={0.02}>
           //   <Button>
