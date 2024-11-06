@@ -247,28 +247,30 @@ const CartContainer = () => {
             </div>
 
             {user ? (
-              <motion.button
-                whileTap={{ scale: 0.8 }}
-                type="button"
-                // onClick={handleSubmit}
-                className="w-full p-2 rounded-full bg-gradient-to-tr bg-gradient-to-r from-cyan-500 to-blue-500 text-gray-50 text-lg my-2 hover:shadow-lg"
+              <ReactWhatsapp
+                className="buttonn"
+                style={{
+                  backgroundColor: "#1AA7EC",
+                  Color: "White",
+                  border: "none",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  width: "100%",
+                  background: "none",
+                }}
+                number="+919902225769"
+                onClick={handleSubmit}
+                message={"New Order Arrived"}
               >
-                <ReactWhatsapp
-                  className="buttonn"
-                  style={{
-                    backgroundColor: "#1AA7EC",
-                    Color: "White",
-                    border: "none",
-                    marginLeft: "10%",
-                    marginRight: "auto",
-                  }}
-                  number="+919902225769"
-                  onClick={handleSubmit}
-                  message={"New Order Arrived"}
+                <motion.button
+                  whileTap={{ scale: 0.8 }}
+                  type="button"
+                  // onClick={handleSubmit}
+                  className="w-full p-2 rounded-full bg-gradient-to-tr bg-gradient-to-r from-cyan-500 to-blue-500 text-gray-50 text-lg my-2 hover:shadow-lg"
                 >
                   Place Order
-                </ReactWhatsapp>
-              </motion.button>
+                </motion.button>
+              </ReactWhatsapp>
             ) : (
               <motion.button
                 whileTap={{ scale: 0.8 }}

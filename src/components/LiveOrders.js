@@ -81,7 +81,9 @@ function LiveOrders() {
 
       console.log(orderlist, "orderlist");
       let confirmation = window.confirm("Did you serve the Dish - type OK");
-      if (confirmation == "OK") {
+      console.log("im hereee", confirmation);
+      if (confirmation == true) {
+        console.log("Okurrrr");
         await addDoc(collection(db, "Orders"), orderlist);
         let ref = doc(db, "LiveOrders", id.toString());
         await deleteDoc(ref);
@@ -93,7 +95,9 @@ function LiveOrders() {
         });
 
         servedOrder.length = 0;
+        console.log("reloading");
         window.location.reload();
+        console.log("reloading-edd");
       }
     }
   };
