@@ -187,6 +187,7 @@ const CartContainer = () => {
         console.log("order placed");
 
         alert(" Yayy!!! Order Successfully placed");
+        window.open("https://wa.me/9082586039?text=New%20Order%20Placed");
 
         // alert("Order Successfully placed");
 
