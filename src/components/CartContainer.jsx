@@ -137,14 +137,10 @@ const CartContainer = () => {
     const msg = `${orderlistings}`;
     const name = `${orderlistings.orderFor}`;
     window.open(
-      `https://wa.me/${num}?text=${orderlistings}`,
+      `https://wa.me/9082586039?text=New%Order%20Place`,
       "_blank",
       "noreferrer"
     );
-    // const win = window.open(
-    //   `https://wa.me/9082586039?text=I%20am%20interested%20in%20your%20car%20for%20sale`
-    // );
-    // win.focus();
   }
 
   const handleSubmit = async () => {
@@ -187,7 +183,7 @@ const CartContainer = () => {
         console.log("order placed");
 
         alert(" Yayy!!! Order Successfully placed");
-        window.open("https://wa.me/9082586039?text=New%20Order%20Placed");
+        send_handle();
 
         // alert("Order Successfully placed");
 
