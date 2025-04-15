@@ -135,7 +135,8 @@ const CartContainer = () => {
   const handleSubmit = async () => {
     if (
       user.email == "writetoprithvipatil@gmail.com" ||
-      user.email == "bluesheeptirthan@gmail.com"
+      user.email == "bluesheeptirthan@gmail.com" ||
+      user.email == "deshnajain0416@gmail.com"
     ) {
       if (personName) {
         if (cartItems.length > 0) {
