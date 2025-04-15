@@ -10,6 +10,7 @@ import CartItem from "./CartItem";
 import { useStateValue } from "../context/StateProvider";
 
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -131,6 +132,20 @@ const CartContainer = () => {
   //login
 
   //submit
+  function send_handle() {
+    const num = "90825 86039";
+    const msg = `${orderlistings}`;
+    const name = `${orderlistings.orderFor}`;
+    window.open(
+      `https://wa.me/${num}?text=${orderlistings}`,
+      "_blank",
+      "noreferrer"
+    );
+    // const win = window.open(
+    //   `https://wa.me/9082586039?text=I%20am%20interested%20in%20your%20car%20for%20sale`
+    // );
+    // win.focus();
+  }
 
   const handleSubmit = async () => {
     if (
@@ -170,6 +185,7 @@ const CartContainer = () => {
         console.log("Whatsapp message", whatsappMessage);
         console.log(orderlist, "orderlist");
         console.log("order placed");
+
         alert(" Yayy!!! Order Successfully placed");
 
         // alert("Order Successfully placed");
@@ -179,6 +195,7 @@ const CartContainer = () => {
           cartShow: !cartShow,
         });
         clearCart();
+        send_handle();
       } else {
         alert("please select guest");
       }
@@ -264,7 +281,7 @@ const CartContainer = () => {
             </div>
 
             {user ? (
-              <ReactWhatsapp
+              <Button
                 className="buttonn"
                 style={{
                   backgroundColor: "#1AA7EC",
@@ -277,7 +294,7 @@ const CartContainer = () => {
                 }}
                 number="+919082586039"
                 onClick={handleSubmit}
-                message={JSON.stringify(orderlist)}
+                message={JSON.stringify(orderlistings)}
               >
                 <motion.button
                   whileTap={{ scale: 0.8 }}
@@ -287,7 +304,7 @@ const CartContainer = () => {
                 >
                   Place Order
                 </motion.button>
-              </ReactWhatsapp>
+              </Button>
             ) : (
               <motion.button
                 whileTap={{ scale: 0.8 }}
