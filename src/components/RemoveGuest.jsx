@@ -121,45 +121,48 @@ const RemoveGuest = () => {
 
   const handleSubmit = async () => {
     if (guests.length > 1) {
-      console.log(guests, "submit");
-      console.log(selectedGuest, "selectedGuest");
+      let result = prompt("This action cannot be reversed!!!!!, Are you sure?");
+      if (result == "yes" || result == "YES") {
+        console.log(guests, "submit");
+        console.log(selectedGuest, "selectedGuest");
 
-      guestID = guests.filter((item) => {
-        if (item.name == selectedGuest) return item.id;
-      });
+        guestID = guests.filter((item) => {
+          if (item.name == selectedGuest) return item.id;
+        });
 
-      console.log(guestID[0].id, "guestID");
+        console.log(guestID[0].id, "guestID");
 
-      let id = guestID[0].id;
-      let ref = doc(db, "Guests", id.toString());
-      await deleteDoc(ref);
-      // const userRef = doc(db, "Guests", id.toString());
-
-      alert(`${guestID[0].name} removed`);
-      setRefresh(!refresh);
-      // window.location.reload();
-      navigate("/");
-    } else {
-      guestID = guests.filter((item) => {
-        return item.id;
         let id = guestID[0].id;
         let ref = doc(db, "Guests", id.toString());
-        deleteDoc(ref);
+        await deleteDoc(ref);
+        // const userRef = doc(db, "Guests", id.toString());
 
         alert(`${guestID[0].name} removed`);
         setRefresh(!refresh);
-
+        // window.location.reload();
         navigate("/");
-      });
-      let id = guestID[0].id;
-      let ref = doc(db, "Guests", id.toString());
-      await deleteDoc(ref);
-      // const userRef = doc(db, "Guests", id.toString());
+      } else {
+        guestID = guests.filter((item) => {
+          return item.id;
+          let id = guestID[0].id;
+          let ref = doc(db, "Guests", id.toString());
+          deleteDoc(ref);
 
-      alert(`${guestID[0].name} removed`);
-      setRefresh(!refresh);
-      // window.location.reload();
-      navigate("/");
+          alert(`${guestID[0].name} removed`);
+          setRefresh(!refresh);
+
+          navigate("/");
+        });
+        let id = guestID[0].id;
+        let ref = doc(db, "Guests", id.toString());
+        await deleteDoc(ref);
+        // const userRef = doc(db, "Guests", id.toString());
+
+        alert(`${guestID[0].name} removed`);
+        setRefresh(!refresh);
+        // window.location.reload();
+        navigate("/");
+      }
     }
   };
 
