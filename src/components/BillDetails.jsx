@@ -272,13 +272,13 @@ const BillDetails = () => {
           <h1
             style={{ margin: "30px", fontWeight: "bolder", fontSize: "28px" }}
           >
-            Total Bill :{total} <span>with GST 5%:{total * 1.05}</span>
+            Total Bill :{total}
           </h1>
-          <h3
+          <h5
             style={{ margin: "30px", fontWeight: "bolder", fontSize: "28px" }}
           >
-            Total Bill :{total * 1.05}
-          </h3>
+            with GST :{total * 1.05}
+          </h5>
         </>
       )}
     </>
