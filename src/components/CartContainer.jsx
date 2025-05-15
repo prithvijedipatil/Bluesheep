@@ -134,7 +134,7 @@ const CartContainer = () => {
 
   //submit
   function send_handle(message) {
-    const phoneNumber = "+919082586031";
+    const phoneNumber = "+919082586039";
 
     console.log("im going", message);
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
