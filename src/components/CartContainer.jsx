@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import ReactWhatsapp from "react-whatsapp";
 
 const ITEM_HEIGHT = 48;
+let orderString = "";
 
 let orderlistings = "";
 const ITEM_PADDING_TOP = 8;
@@ -133,7 +134,7 @@ const CartContainer = () => {
 
   //submit
   function send_handle(message) {
-    const phoneNumber = "+919082586039";
+    const phoneNumber = "+919082586031";
 
     console.log("im going", message);
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
@@ -167,6 +168,19 @@ const CartContainer = () => {
           };
           console.log("sending data", finalOrders);
           console.log("orderlist", orderlist);
+
+          // testing whatsapp
+
+          const namez = Array.isArray(orderlist.orderFor)
+            ? orderlist.orderFor
+            : [String(orderlist.orderFor || "")];
+          const order = Array.isArray(orderlist.order) ? orderlist.order : [];
+
+          orderString = [...namez, ...order.map((item) => item.name)].join(
+            "\n"
+          );
+
+          //end whatsapp testing
           sessionStorage.setItem("whatsappmessage", JSON.stringify(orderlist));
           await addDoc(collection(db, "LiveOrders"), orderlist);
           orderlistings = JSON.stringify(orderlist);
@@ -183,7 +197,7 @@ const CartContainer = () => {
         console.log("order placed");
 
         alert(" Yayy!!! Order Successfully placed");
-        send_handle(sessionStorage.getItem("whatsappmessage"));
+        send_handle(orderString);
 
         // alert("Order Successfully placed");
 
