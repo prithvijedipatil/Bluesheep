@@ -33,6 +33,15 @@ const bull = (
   </Box>
 );
 
+// const handleWhatsAppClick = () => {
+//   const phoneNumber = '+919902225769'; // Replace with the recipient's phone number (with country code)
+//   const message = 'Hello from my React app!'; // Replace with the message you want to send
+
+//   const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+//   window.open(whatsappURL, '_blank');
+// };
+
 function LiveOrders() {
   const [liveOrders, setLiveOrders] = useState([]);
   const chatRef = useRef(null);
@@ -56,6 +65,8 @@ function LiveOrders() {
             dynamicOrders: dummyData,
           });
         });
+
+        // handleWhatsAppClick();
 
         console.log(dummyData, "LiveOrderDatafinal");
 

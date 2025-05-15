@@ -132,15 +132,15 @@ const CartContainer = () => {
   //login
 
   //submit
-  function send_handle() {
-    const num = "90825 86039";
-    const msg = `${orderlistings}`;
-    const name = `${orderlistings.orderFor}`;
-    window.open(
-      `https://wa.me/9082586039?text=New%Order%20Place`,
-      "_blank",
-      "noreferrer"
-    );
+  function send_handle(message) {
+    const phoneNumber = "+919082586039";
+
+    console.log("im going", message);
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.open(whatsappURL, "_blank");
   }
 
   const handleSubmit = async () => {
@@ -183,7 +183,7 @@ const CartContainer = () => {
         console.log("order placed");
 
         alert(" Yayy!!! Order Successfully placed");
-        send_handle();
+        send_handle(sessionStorage.getItem("whatsappmessage"));
 
         // alert("Order Successfully placed");
 
@@ -192,7 +192,7 @@ const CartContainer = () => {
           cartShow: !cartShow,
         });
         clearCart();
-        send_handle();
+        // send_handle();
       } else {
         alert("please select guest");
       }
