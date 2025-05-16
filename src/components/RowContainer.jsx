@@ -32,7 +32,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
     <div
       style={{ border: "2px solid blue !important" }}
       ref={rowContainer}
-      className={`w-full flex items-center gap-3  my-12 scroll-smooth  ${
+      className={`w-auto flex items-end gap-3  my-12 scroll-smooth  ${
         flag
           ? "overflow-x-scroll scrollbar-none"
           : "overflow-x-hidden flex-wrap justify-center"
@@ -44,13 +44,9 @@ const RowContainer = ({ flag, data, scrollValue }) => {
             style={{ border: "2px solid blue !important" }}
             onClick={() => setItems([...cartItems, item])}
             key={item?.id}
-            className="w-275 h-[175px] min-w-[275px] md:w-600 md:min-w-[200px] min-h-[100px] bg-cardOverlay rounded-lg py-2 px-6  my-12 backdrop-blur-lg border-4  flex flex-row relative"
+            className="w-100 h-[150px] min-w-[100px] md:w-100 md:min-w-[100px] min-h-[100px] bg-cardOverlay rounded-lg py-2 px-6  my-12 backdrop-blur-lg border-4  flex flex-row relative"
           >
-            <div
-              className="w-full flex items-center  justify-center mx-5 my-10 "
-              style={{ border: "2px solid blue !important" }}
-            >
-              {/* <motion.div
+            {/* <motion.div
                 className="w-20 h-20 -mt-8 drop-shadow-2xl"
                 whileHover={{ scale: 1.2 }}
               >
@@ -60,22 +56,17 @@ const RowContainer = ({ flag, data, scrollValue }) => {
                   className="w-full h-full object-contain"
                 />
               </motion.div> */}
-              <motion.div
-                whileTap={{ scale: 0.75 }}
-                className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
-                onClick={() => setItems([...cartItems, item])}
-              >
-                <MdShoppingBasket
-                  style={{ width: "30px", height: "30px" }}
-                  className="text-sky-500"
-                />
-              </motion.div>
-            </div>
+            <div
+              whileTap={{ scale: 0.75 }}
+              onClick={() => setItems([...cartItems, item])}
+            ></div>
 
-            <div className="w-full  mx-6 flex flex-col items-start gap-3 justify-start mt-8">
-              <p className="text-black font-bold text-3xl md:text-lg tracking-wide ">
-                {item?.title}
-              </p>
+            <div className="w-auto  mx-6 flex flex-col items-start gap-3 justify-start mt-8">
+              <div className="flex flex-wrap w-3 items-center">
+                <p className="text-black   text-sm md:text-sm tracking-wide ">
+                  {item?.title}
+                </p>
+              </div>
               {/* <p className="mt-1 text-sm text-gray-500">
                 {item?.calories} Calories
               </p> */}
