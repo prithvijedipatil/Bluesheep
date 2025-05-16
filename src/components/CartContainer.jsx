@@ -45,7 +45,7 @@ const CartContainer = () => {
   let orderlist = {};
   const theme = useTheme();
   const [personName, setPersonName] = useState("");
-
+  const [custom, setCustom] = useState("");
   const [Guests, setGuests] = useState([]);
   const [whatsappMessage, setWhatsappMessage] = useState("");
 
@@ -53,6 +53,12 @@ const CartContainer = () => {
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
   let label = [];
+  const [inputValue, setInputValue] = React.useState("");
+  let customMessage = "";
+
+  const onChangeHandler = (event) => {
+    setInputValue(event.target.value);
+  };
 
   // this is person selections
   const handleChange = (event) => {
@@ -133,12 +139,12 @@ const CartContainer = () => {
   //login
 
   //submit
-  function send_handle(message) {
+  function send_handle(message, custom) {
     const phoneNumber = "+919082586039";
-
+    const finalMessage = message.concat("   (custom request)", custom);
     console.log("im going", message);
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-      message
+      finalMessage
     )}`;
 
     window.open(whatsappURL, "_blank");
@@ -165,6 +171,7 @@ const CartContainer = () => {
             date: Math.floor(Date.now() / 1000),
             orderFor: personName,
             order: finalOrders,
+            custom: inputValue,
           };
           console.log("sending data", finalOrders);
           console.log("orderlist", orderlist);
@@ -179,6 +186,7 @@ const CartContainer = () => {
           orderString = [...namez, ...order.map((item) => item.name)].join(
             "\n"
           );
+          customMessage = orderlist.custom;
 
           //end whatsapp testing
           sessionStorage.setItem("whatsappmessage", JSON.stringify(orderlist));
@@ -197,7 +205,7 @@ const CartContainer = () => {
         console.log("order placed");
 
         alert(" Yayy!!! Order Successfully placed");
-        send_handle(orderString);
+        send_handle(orderString, customMessage);
 
         // alert("Order Successfully placed");
 
@@ -283,23 +291,31 @@ const CartContainer = () => {
                 ))}
               </select>
             </div>
-
-            <div className="w-full border-b border-gray-600 my-2"></div>
-
-            <div className="w-full flex items-center justify-between">
+            <input
+              className="w-full p-1 px-2 mt-4  rounded-lg bg-cartItem text-white flex items-center gap-2"
+              type="text"
+              name="Customization"
+              placeholder="Customization"
+              onChange={onChangeHandler}
+              value={inputValue}
+            />
+            <div className="w-full my-5"></div>
+            <div className="w-full flex mt-2 items-center justify-between">
               <p className="text-gray-200 text-xl font-semibold">Total</p>
               <p className="text-gray-200 text-xl font-semibold">₹{tot}</p>
             </div>
 
             {user ? (
               <Button
-                className="buttonn"
+                className="buttonn  "
                 style={{
                   backgroundColor: "#1AA7EC",
                   Color: "White",
                   border: "none",
                   marginLeft: "auto",
+                  marginBottom: "100px",
                   marginRight: "auto",
+
                   width: "100%",
                   background: "none",
                 }}

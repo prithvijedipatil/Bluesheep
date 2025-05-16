@@ -62,7 +62,72 @@ export const categories = [
   },
   {
     id: 5,
-    name: "Favourites",
-    urlParamName: "Favourites",
+    name: "Extras",
+    urlParamName: "Extras",
+  },
+  {
+    id: 6,
+    name: "Hot Beverages",
+    urlParamName: "Hot Beverages",
+  },
+  {
+    id: 7,
+    name: "Cold Beverages",
+    urlParamName: "Cold Beverages",
+  },
+  {
+    id: 8,
+    name: "Sandwiches",
+    urlParamName: "Sandwiches",
+  },
+  {
+    id: 9,
+    name: "Veg Munchies",
+    urlParamName: "Veg Munchies",
+  },
+  {
+    id: 10,
+    name: "Non-Veg Munchies",
+    urlParamName: "Non-Veg Munchies",
+  },
+  {
+    id: 11,
+    name: "Indian Mains",
+    urlParamName: "Indian Mains",
+  },
+  {
+    id: 12,
+    name: "Chinese",
+    urlParamName: "Chinese",
+  },
+  {
+    id: 13,
+    name: "Pizzas",
+    urlParamName: "Pizzas",
+  },
+  {
+    id: 14,
+    name: "Pastas",
+    urlParamName: "Pastas",
+  },
+  {
+    id: 15,
+    name: "Burgers",
+    urlParamName: "Burgers",
+  },
+  {
+    id: 16,
+    name: "Shakes",
+    urlParamName: "Shakes",
+  },
+  {
+    id: 17,
+    name: "Desserts",
+    urlParamName: "Desserts",
+  },
+  {
+    id: 18,
+    name: "Cafe",
+    urlParamName: "Cafe",
   },
 ];

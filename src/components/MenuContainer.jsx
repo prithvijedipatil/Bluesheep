@@ -1,23 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { IoFastFood } from "react-icons/io5";
 import { categories } from "../utils/data";
 import { motion } from "framer-motion";
 import RowContainer from "./RowContainer";
 import { useStateValue } from "../context/StateProvider";
+import { MenuItem } from "react-pro-sidebar";
+import { Box, FormControl, InputLabel, Select } from "@mui/material";
 
 const MenuContainer = () => {
   const [filter, setFilter] = useState("chicken");
 
   const [{ foodItems }, dispatch] = useStateValue();
+  const myRefItem = useRef(null);
+
+  function executeItems(message) {
+    myRefItem.current.scrollIntoView();
+    setFilter(message);
+  }
 
   return (
     <section className="w-full my-6" id="menu">
       <div className="w-full flex flex-col items-center justify-center">
         <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-16 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-cyan-500 to-blue-500 transition-all ease-in-out duration-100 mr-auto">
-          Our Hot Dishes
+          Categories
         </p>
 
-        <div className="w-full flex items-center justify-start lg:justify-center gap-8 py-6 overflow-x-scroll scrollbar-none">
+        <div className="w-full flex flex-wrap items-center justify-center lg:justify-center gap-3 mt-16 overflow-x-scroll scrollbar-none">
           {categories &&
             categories.map((category) => (
               <motion.div
@@ -26,9 +34,13 @@ const MenuContainer = () => {
                 className={`group ${
                   filter === category.urlParamName ? "bg-sky-500" : "bg-card"
                 } w-24 min-w-[94px] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-sky-500 `}
-                onClick={() => setFilter(category.urlParamName)}
+                onClick={() => {
+                  {
+                    executeItems(category.urlParamName);
+                  }
+                }}
               >
-                <div
+                {/* <div
                   className={`w-10 h-10 rounded-full shadow-lg ${
                     filter === category.urlParamName ? "bg-white" : "bg-sky-500"
                   } group-hover:bg-white flex items-center justify-center`}
@@ -40,9 +52,9 @@ const MenuContainer = () => {
                         : "text-white"
                     } group-hover:text-textColor text-lg`}
                   />
-                </div>
+                </div> */}
                 <p
-                  className={`text-sm ${
+                  className={`text-sm text-sky-600  ${
                     filter === category.urlParamName
                       ? "text-white"
                       : "text-textColor"
@@ -53,7 +65,7 @@ const MenuContainer = () => {
               </motion.div>
             ))}
         </div>
-
+        <div ref={myRefItem}></div>
         <div className="w-full">
           <RowContainer
             flag={false}
