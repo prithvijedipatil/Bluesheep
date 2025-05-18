@@ -219,8 +219,8 @@ const BillDetails = () => {
                       }}
                     >
                       <th>Order-Name</th>
-                      <th>Quantity</th>
                       <th>Price</th>
+                      <th>Quantity</th>
                       <th>Total</th>
                     </tr>
                   </thead>
@@ -254,6 +254,12 @@ const BillDetails = () => {
                         </>
                       );
                     })}
+                  <tr>
+                    <td> </td>
+                    <td></td>
+                    <td className="font-bold"> Total</td>
+                    <td className="font-bold">{total}</td>
+                  </tr>
                 </table>
               </div>
               <button
