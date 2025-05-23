@@ -24,6 +24,7 @@ const BillDetails = () => {
   const [personName, setPersonName] = useState("");
   const dummyData = [];
   const names = [];
+
   const finaOrdersData = [];
   const [{ billItems }, dispatch] = useStateValue();
   const [showTable, setShowTable] = useState(false);
@@ -218,48 +219,56 @@ const BillDetails = () => {
                         borderCollapse: "collapse",
                       }}
                     >
+                      <th>Date</th>
                       <th>Order-Name</th>
+
                       <th>Price</th>
                       <th>Quantity</th>
                       <th>Total</th>
                     </tr>
                   </thead>
-                  {console.log(billDetails)}
-                  {billDetails &&
-                    billDetails.map((item) => {
-                      return (
-                        <>
-                          {item.order.map((orderData) => {
-                            return (
-                              <>
-                                <tr>
-                                  {/* <td key={item.id} colSpan={item.order.length}>
-                            {item.date.toString()}
-                          </td> */}
-                                  <td>{orderData.name}</td>
-                                  <td>{orderData.price}</td>
-                                  <td>{orderData.quantity}</td>
-                                  <td>
-                                    {eval(orderData.quantity * orderData.price)}
-                                  </td>
-                                </tr>
-                                {/* {
+
+                  {console.log(billDetails, "look here for bill details")}
+                  <tbody>
+                    {billDetails &&
+                      billDetails.map((item) => {
+                        return (
+                          <>
+                            {item.order.map((orderData) => {
+                              return (
+                                <>
+                                  <tr>
+                                    <td key={item.id}>
+                                      {item.date.toString()}
+                                    </td>
+                                    <td>{orderData.name}</td>
+
+                                    <td>{orderData.price}</td>
+                                    <td>{orderData.quantity}</td>
+                                    <td>
+                                      {eval(
+                                        orderData.quantity * orderData.price
+                                      )}
+                                    </td>
+                                  </tr>
+                                  {/* {
                           (total = eval(
                             total + eval(orderData.quantity * orderData.price)
                           ))
                         } */}
-                              </>
-                            );
-                          })}
-                        </>
-                      );
-                    })}
-                  <tr>
-                    <td> </td>
-                    <td></td>
-                    <td className="font-bold"> Total</td>
-                    <td className="font-bold">{total}</td>
-                  </tr>
+                                </>
+                              );
+                            })}
+                          </>
+                        );
+                      })}
+                    <tr>
+                      <td> </td>
+                      <td></td>
+                      <td className="font-bold"> Total</td>
+                      <td className="font-bold">{total}</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <button
