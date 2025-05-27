@@ -140,7 +140,7 @@ const CartContainer = () => {
 
   //submit
   function send_handle(message, custom) {
-    const phoneNumber = "+919082586039";
+    const phoneNumber = "+919873846162";
     const finalMessage = message.concat("   (custom request)", custom);
     console.log("im going", message);
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
@@ -319,7 +319,7 @@ const CartContainer = () => {
                   width: "100%",
                   background: "none",
                 }}
-                number="+919082586039"
+                number="+919873846162"
                 onClick={handleSubmit}
                 message={JSON.stringify(orderlistings)}
               >
